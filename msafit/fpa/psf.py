@@ -7,7 +7,7 @@ from msafit.utils.array_utils import downsample_array
 from msafit.utils.convolution import extend_hypercube
 from scipy.interpolate import interpn
 
-__all__ = ["PSFLib","load_from_file","construct_hypercube"]
+__all__ = ["PSFLib"]
 
 class PSFLib:
 
