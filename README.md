@@ -13,9 +13,12 @@ Installation
 
 Dependencies: numpy, scipy, astropy. For fitting in 1D or 2D with lmfit, emcee, or ultranest, these packages need to be installed separately.
 
-Download reference files from the following locations. Some of these files are large and not everything is needed: check which filter/disperser you are interested in and download only those traces and PSFs!
+Download reference files from the following locations (hosted on Zenodo, which will become public once the arxiv ID is known.) Some of these files are large and not everything is needed: check which filter/disperser you are interested in and download only those traces and PSFs!
 
-Files are hosted on Zenodo, which will become public once the arxiv ID is known.
+* trace libraries and detector properties:
+
+* model PSF libraries: 
+
 
 Although you can specify the location of these files yourself when running the code, the following is much more convenient in the long run. Create a new folder (e.g. called "msafit_ref_data") that has two subfolders storing the detector properties (everything from Zenodo link 1) and PSF libraries (downloaded from Zenodo link 2):
 
@@ -36,18 +39,16 @@ Then set an environment variable ($msa_refdata) in your bashrc (or similar) poin
 export msa_refdata=/path/to/my/msafit_ref_data/
 ```
 
-Install by downloading or cloning the repository (currently: the develop branch)
-
-Then cd to msafit and:
+Install by downloading or cloning the repository. Then cd to jwst-msafit and:
 ```
 python -m pip install .
 ```
 
-You can try if the installation is successful by trying
+You should now be able to import the package by typing
+
 ```python
 import msafit
 ```
-
 
 
 
