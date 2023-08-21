@@ -46,9 +46,9 @@ class Detector:
 class DetectorCutout(Detector):
 
 
-    def __init__(self,fwa,gwa,quadrant,shutter_i,shutter_j,N_shutter=3,source_shutter=0,oversampling=1):
+    def __init__(self,fwa,gwa,quadrant,shutter_i,shutter_j,N_shutter=3,source_shutter=0,oversampling=1,refdir=None):
 
-        super().__init__(oversampling=1,refdir=None)    # we only oversample the cutout region if oversampling>1, not the full detector
+        super().__init__(oversampling=1,refdir=refdir)    # we only oversample the cutout region if oversampling>1, not the full detector
         self.fwa = fwa
         self.gwa = gwa
         self.qd = quadrant

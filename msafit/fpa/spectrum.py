@@ -11,7 +11,7 @@ __all__ = ["Spec2D"]
 
 class Spec2D(DetectorCutout):
 
-    def __init__(self,parameter_dict,**kwargs):
+    def __init__(self,parameter_dict,refdir=None,**kwargs):
 
         super().__init__(fwa=parameter_dict["instrument"]["filter"],
             gwa=parameter_dict["instrument"]["disperser"],
@@ -20,7 +20,7 @@ class Spec2D(DetectorCutout):
             shutter_j=parameter_dict["geometry"]["shutter_j"],
             N_shutter=int(parameter_dict["geometry"]["shutter_array"][-1]),
             source_shutter=parameter_dict["geometry"]["source_shutter"],
-            oversampling=parameter_dict["instrument"]["psf_oversampling"])
+            oversampling=parameter_dict["instrument"]["psf_oversampling"],refdir=refdir)
 
         self.params = parameter_dict
         self.make_cutout_range(parameter_dict["grid"]["wave_grid"],**kwargs)
