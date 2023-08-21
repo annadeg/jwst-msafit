@@ -1,12 +1,12 @@
-A forward modelling and fitting tool for NIRSpec MOS data. With msafit you can:
+msafit provides a forward modelling and fitting tool for NIRSpec MOS data. With msafit you can:
 
-* Estimate the slit losses and line spread function for an arbitrary morphology in an arbitrary slit, for any wavelength and filter/disperser combination.
+* Estimate the slit losses and line spread function for a user-specified morphology in any slit, for any wavelength and filter/disperser combination.
 
 * Fit the spatial extent of one or more emission lines.
 
 * Fit the 2D velocity field of one or more emission lines.
 
-Documentation in progress... More examples will be uploaded in the next days/weeks.
+Documentation in progress... Some example scripts are available, with more examples to be uploaded in the next days/weeks - stay tuned!
 
 Installation
 ------------
