@@ -6,17 +6,18 @@ A forward modelling and fitting tool for NIRSpec MOS data. With msafit you can:
 
 * Fit the 2D velocity field of one or more emission lines.
 
-Further documentation in progress... You can find some example scripts in /examples
+Documentation in progress... More examples will be uploaded in the next days/weeks.
 
 Installation
 ------------
 
-Dependencies: numpy, scipy
+Dependencies: numpy, scipy, astropy. For fitting in 1D or 2D with lmfit, emcee, or ultranest, these packages need to be installed separately.
 
-Then download reference files from the following locations. These files are large and not everything is needed: check which filter/disperser you are interested in and download only those!
+Download reference files from the following locations. Some of these files are large and not everything is needed: check which filter/disperser you are interested in and download only those traces and PSFs!
 
+Files are hosted on Zenodo, which will become public once the arxiv ID is known.
 
-Although you can specify the location of these files yourself when running the code, the following is much more convenient in the long run. Create folder a new folder (e.g. called "msafit_ref_data") that has two subfolders storing the detector properties (everything from Zenodo link 1) and PSF libraries (downloaded from Zenodo link 2):
+Although you can specify the location of these files yourself when running the code, the following is much more convenient in the long run. Create a new folder (e.g. called "msafit_ref_data") that has two subfolders storing the detector properties (everything from Zenodo link 1) and PSF libraries (downloaded from Zenodo link 2):
 
 msafit_ref_data/ \
 ├── detector/ \
