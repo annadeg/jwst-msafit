@@ -33,7 +33,7 @@ msafit_ref_data/ \
 
 Then set an environment variable ($msa_refdata) in your bashrc (or similar) pointing to this directory:
 ```bash
-export msa_refdata=/path/to/your/reference/data/
+export msa_refdata=/path/to/my/msafit_ref_data/
 ```
 
 Install by downloading or cloning the repository (currently: the develop branch)
