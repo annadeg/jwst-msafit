@@ -1,0 +1,34 @@
+[project]
+name = "jwst-msafit"
+description = "Forward modelling and fitting of NIRSpec MSA data"
+authors = [
+    { name="Anna de Graaff", email="degraaff@mpia.de" },
+]
+readme = "README.md"
+requires-python = ">=3.7"
+classifiers = [
+    "Development Status :: 0 - Production/Stable",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python",
+    "License :: Other",
+    "Natural Language :: English",
+    "Topic :: Scientific/Engineering :: Astronomy"
+]
+dynamic = ["version"]
+dependencies = ["numpy", "astropy","scipy"]
+
+
+
+[tool.setuptools]
+packages = ["msafit"]
+
+[project.urls]
+"Source" = "https://github.com/annadeg/jwst-msafit/tree/main"
+"Bug Tracker" = "https://github.com/annadeg/jwst-msafit/issues"
+
+[build-system]
+requires = ["setuptools>=42", "wheel", "setuptools_scm"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools_scm]
+write_to = "msafit/_version.py"
