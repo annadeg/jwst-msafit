@@ -86,7 +86,7 @@ class LightDist2D:
             light_dist2D[ind_med[0][0]:ind_med[0][1],ind_med[1][0]:ind_med[1][1]] = 0.
             light_dist2D[ind_med[0][0]:ind_med[0][1],ind_med[1][0]:ind_med[1][1]] += light_med
 
-            light_inner, ind_inner = self.integrate_oversampled_profile(xgrid,ygrid,parameter_dict,r_e_2,1000,1)
+            light_inner, ind_inner = self.integrate_oversampled_profile(xgrid,ygrid,parameter_dict,r_e_2,500,1)
             light_dist2D[ind_inner[0][0]:ind_inner[0][1],ind_inner[1][0]:ind_inner[1][1]] = 0.
             light_dist2D[ind_inner[0][0]:ind_inner[0][1],ind_inner[1][0]:ind_inner[1][1]] += light_inner
 

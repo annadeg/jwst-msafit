@@ -54,10 +54,10 @@ def check_input_config(parameter_dict):
     if "instrument" not in parameter_dict.keys():
         raise KeyError("No instrument setup specified")
     elif "geometry" not in parameter_dict.keys():
-        print("Warning: no geometry specified. Assuming 1x3 shutter at q3_i183_j85")
+        print("No geometry specified. Assuming 1x3 shutter at q3_i183_j85")
         parameter_dict["geometry"] = get_default_geometry()
     elif "grid" not in parameter_dict.keys():
-        print("Warning: no grids specified. Assuming default of factor ~4 oversampling and 1x3 shutter")
+        print("No grids specified. Assuming default of factor ~4 oversampling and 1x3 shutter")
         parameter_dict["grid"] = get_default_grid()
 
 
@@ -89,7 +89,7 @@ def check_input_config(parameter_dict):
                     parameter_dict["morph"][i]["x0_sky"] = parameter_dict["morph"][i]["x0_sky"]
                     parameter_dict["morph"][i]["y0_sky"] = parameter_dict["morph"][i]["y0_sky"]+(sloc*parameter_dict["geometry"]["psky_y"])            
             except KeyError:
-                print("WARNING: no shutter offsets specified, assuming (x0=0,y0=0)")
+                print("No shutter offsets specified, assuming (x0=0,y0=0)")
                 parameter_dict["morph"][i]["x0_sky"] = 0.
                 parameter_dict["morph"][i]["y0_sky"] = 0.
 

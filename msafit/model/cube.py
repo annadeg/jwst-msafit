@@ -42,13 +42,23 @@ class Cube:
 
     """
     Class to construct a noisefree, unconvolved cube
-
-    Parameters:
-    x_grid: 1D array, dispersion direction
-    y_grid: 1D array, cross-dispersion direction
-    wave_grid: 1D array, wavelengths
-    wave_sampling: str, specify whether wave_grid is sampled in linear or log space for the convolution
-
+    
+    Parameters
+    ----------
+    x_grid
+        1D array, dispersion direction
+    y_grid
+        1D array, cross-dispersion direction
+    wave_grid
+        1D array, wavelengths
+    wave_sampling
+        str, specify whether wave_grid is sampled in linear or log space for the convolution
+    
+    Attributes
+    ----------
+    data : ndarray
+        model flux cube 
+    
     """
     def __init__(self, x_grid, y_grid, wave_grid,wave_sampling='linear'):
 
@@ -64,15 +74,35 @@ class Cube:
  
         """
         create single cube by convolving one 2D light profile model with one 2D velocity field model
-
-        Parameters:
-        modelLight2D: class instance
-        modelVel2D: class instance
-        parameter_dict: dict, has to contain all parameters relevant for the light and velocity models
-        obs_wave: float or None, *observed* wavelength at which to place the line
-        rest_wave: float or None, *rest-frame* wavelength at which to place the line. Important: must be accompanied by a valid z_spec
-        z_spec: float or None, redshift. Only needs to be defined if using rest_wave
-
+        
+        Parameters
+        ----------
+        modelLight2D
+            class instance
+        modelVel2D
+            class instance
+        parameter_dict
+            dict, has to contain all parameters relevant for the light and velocity models
+        i_comp : int, optional
+            Description
+        obs_wave
+            float or None, *observed* wavelength at which to place the line
+        rest_wave
+            float or None, *rest-frame* wavelength at which to place the line. Important: must be accompanied by a valid z_spec
+        z_spec
+            float or None, redshift. Only needs to be defined if using rest_wave
+        **kwargs
+        
+        Returns
+        -------
+        ndarray
+            flux cube for single component
+        
+        Raises
+        ------
+        ValueError
+            if user input is insufficient (no wavelength or redshift, invalid wavelength sampling)
+        
         """
         if (obs_wave is None) and (rest_wave is None): 
             raise ValueError("No wavelength defined for line")
@@ -102,15 +132,28 @@ class Cube:
     def compute_line_from2d(self, modelLight2D, modelVel2D, parameter_dict,obs_wave=None,rest_wave=None,z_spec=None,**kwargs):
         """
         create cube by co-adding multiple 2D light profile models convolved with multiple 2D velocity field models
-
-        Parameters:
-        modelLight2D: class instance or list
-        modelVel2D: class instance or list
-        parameter_dict: dict or list of dicts, has to contain all parameters relevant for the light and velocity models
-        obs_wave: list or None, *observed* wavelength at which to place the line
-        rest_wave: list or None, *rest-frame* wavelength at which to place the line. Important: must be accompanied by a valid z_spec
-        z_spec: float or None, redshift. Only needs to be defined if using rest_wave
-
+        
+        Parameters
+        ----------
+        modelLight2D
+            class instance or list
+        modelVel2D
+            class instance or list
+        parameter_dict
+            dict or list of dicts, has to contain all parameters relevant for the light and velocity models
+        obs_wave
+            list or None, *observed* wavelength at which to place the line
+        rest_wave
+            list or None, *rest-frame* wavelength at which to place the line. Important: must be accompanied by a valid z_spec
+        z_spec
+            float or None, redshift. Only needs to be defined if using rest_wave
+        **kwargs
+        
+        Raises
+        ------
+        ValueError
+            if user input is insufficient (no wavelength or redshift, invalid wavelength sampling)
+        
         """
 
         if (obs_wave is None) and (rest_wave is None): 
@@ -188,46 +231,4 @@ class Cube:
         hdu.header['CRPIX3'] = 1
         hdu.writeto(fileout, overwrite=True)
         
-    def write_ips_object(self, fileout, author="anonymous", date="2000-01-10T00:00:00", description="data"):
-        """
-        write cube to specific data format needed for the IPS
-        Parameters:
-        fileout: str, path+name of output file
-        """
-        xpos=[]
-        ypos=[]
-        wave_array = []
-        flux_array = []
-        dim = self._x.shape
-    
-        for ix in range(dim[1]):
-            for iy in range(dim[0]):
-                xpos.append(self._x[iy,ix])
-                ypos.append(self._y[iy,ix])
-                wave_array.append(self._wave*1e-6)
-                flux_array.append(self.data[:,iy,ix])
-        column=[]
-        column.append(fits.Column(name="XPOS",format="E",unit='arcsec', array=xpos))
-        column.append(fits.Column(name="YPOS",format="E",unit='arcsec',array=ypos))
-        column.append(fits.Column(name="NBVAL",format="I",unit='UNITLESS',array=np.ones(len(ypos),dtype=np.int16)*len(self._wave)))
-        column.append(fits.Column(name="WAVELENGTH",format="%dE"%(len(self._wave)),unit='m',array=wave_array))
-        column.append(fits.Column(name="FLUX",format="%dE"%(len(self._wave)),unit='W m-2 m-1 [arcsec-2]',array=flux_array))
-    
-    
-        hdu = fits.PrimaryHDU()
-        hdu.header['DATE'] = date
-        hdu.header['AUTHOR'] = author
-        hdu.header['ID'] = 1
-        hdu.header['DESCR'] = description
-        hdu.header['FILETYPE'] = 'SRC-ES'
-        hdu.header['CONTFLAG'] = 'F'
-        hdu.header['EMIFLAG'] = 'F'
-        hdu.header['NBADD'] = '1'
-        hdu.header['PM'] = 'NOT APPLICABLE'
-        tab = fits.BinTableHDU.from_columns(column)
-        tab.header['EXTNAME']='ADD001'
-        hdus = fits.HDUList([hdu,tab])
-        hdus.writeto(fileout,overwrite=True)
-        
-
 

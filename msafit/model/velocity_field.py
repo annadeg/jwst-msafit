@@ -52,10 +52,18 @@ class VelField2D:
 def arctan1D(r, parameter_dict):
     """
     arctangent rotation curve
-
-    parameters:
-    v_a: float, asymptotic velocity (km/s)
-    r_t: float, turnover radius (arcsec)
+    
+    Parameters
+    ----------
+    r : float or array
+        radius
+    parameter_dict : dict
+        contains parameters v_a (asymptotic velocity in (km/s)) and r_t (turnover radius in (arcsec))
+    
+    Returns
+    -------
+    float or array
+        velocity curve
     """
     v_out = (2.0 / np.pi) * parameter_dict["v_a"] * np.arctan(r / parameter_dict["r_t"])
     return v_out
@@ -64,31 +72,21 @@ def arctan1D(r, parameter_dict):
 def const_vdisp(r,parameter_dict):
     """
     constant velocity dispersion profile
-
-    parameters:
-    sigma_0: float, velocity dispersion (km/s)
-    """    
+    
+    Parameters
+    ----------
+    r : float or array
+        radius
+    parameter_dict : dict
+        contains parameter sigma_0: float, velocity dispersion (km/s)
+    
+    Returns
+    -------
+    float or array
+        velocity curve
+    """
     return np.ones(r.shape)*parameter_dict["sigma_0"]
 
-
-
-
-# to be removed later on probably
-class VelCurve1D:
-    def __init__(self, function):
-        self.__function1D = function
-        
-    def evaluate(self, r, parameter_dict):
-        velocity = self.__function1D(r, parameter_dict)
-        return velocity
-    
-class VelDisp1D:
-    def __init__(self, function):
-        self.__function1D = function
-        
-    def evaluate(self, r, parameter_dict):
-        veldisp = self.__function1D(r, parameter_dict)
-        return veldisp
 
 
 
