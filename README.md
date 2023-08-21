@@ -19,15 +19,25 @@ Then download reference files from the following locations. These files are larg
 Although you can specify the location of these files yourself when running the code, the following is much more convenient in the long run. Create folder a new folder (e.g. called "msafit_ref_data") that has two subfolders storing the detector properties (everything from Zenodo link 1) and PSF libraries (downloaded from Zenodo link 2):
 
 msafit_ref_data/
+
 ├── detector/
+
 │   ├── coordinates.fits
+
 │   ├── kernel_sca491.txt
+
 │   ├── kernel_sca492.txt
+
 │   ├── properties.txt
+
 │   ├── trace_lib_CLEAR_PRISM.fits
+
 │   └── ...
+
 ├── psf/
+
 │   ├── 1x1_PRISM_Q3_PSFLib.fits
+
 │   ├── ...
 
 Then set an environment variable ($msa_refdata) in your bashrc (or similar) pointing to this directory:
