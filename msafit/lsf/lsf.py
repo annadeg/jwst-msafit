@@ -1,6 +1,11 @@
 import numpy as np
 from msafit.utils.trace import get_dlambda_dx
-from lmfit import Parameters, minimize
+
+try:
+    from lmfit import Parameters, minimize
+except ImportError:
+    print("To fit LSFs using the LSF class requires installation of lmfit")
+
 from scipy.interpolate import interp1d
 from .fit_func import *
 
