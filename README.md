@@ -1,4 +1,6 @@
-msafit provides a forward modelling and fitting tool for NIRSpec MOS data. With msafit you can:
+msafit provides a forward modelling and fitting tool for JWST/NIRSpec MOS data. This software is described in de Graaff et al. (2023): https://arxiv.org/abs/2308.09742. If you use msafit for your research, please cite this paper.
+
+With msafit you can:
 
 * Estimate the slit losses and line spread function for a user-specified morphology in any slit, for any wavelength and filter/disperser combination.
 
@@ -6,21 +8,21 @@ msafit provides a forward modelling and fitting tool for NIRSpec MOS data. With 
 
 * Fit the 2D velocity field of one or more emission lines.
 
-Documentation in progress... Some example scripts are available, with more examples to be uploaded in the next days/weeks - stay tuned!
+Documentation in progress... One example script is currently available, with more examples to be uploaded in the near future - stay tuned!
 
 Installation
 ------------
 
 Dependencies: numpy, scipy, astropy. For fitting in 1D or 2D with lmfit, emcee, or ultranest, these packages need to be installed separately.
 
-Download reference files from the following locations (hosted on Zenodo, which will become public once the arxiv ID is known.) Some of these files are large and not everything is needed: check which filter/disperser you are interested in and download only those traces and PSFs!
+First, download reference files needed to run the software. These files are hosted on Zenodo. Some of the files are large and not everything is needed: check which filter/disperser you are interested in and download only those traces and PSFs if you want to save disk space!
 
-* trace libraries and detector properties:
+* trace libraries and detector properties: https://doi.org/10.5281/zenodo.8265895
 
-* model PSF libraries: 
+* model PSF libraries: https://doi.org/10.5281/zenodo.8265441
 
 
-Although you can specify the location of these files yourself when running the code, the following is much more convenient in the long run. Create a new folder (e.g. called "msafit_ref_data") that has two subfolders storing the detector properties (everything from Zenodo link 1) and PSF libraries (downloaded from Zenodo link 2):
+Although you can specify the location of these files yourself when running the code, the following is much more convenient in the long run. Create a new folder (e.g. called "msafit_ref_data") that has two subfolders storing the detector properties (everything from Zenodo link 1) and PSF libraries (downloaded from Zenodo link 2). The file structure should then look like this:
 
 msafit_ref_data/ \
 ├── detector/ \
@@ -39,7 +41,7 @@ Then set an environment variable ($msa_refdata) in your bashrc (or similar) poin
 export msa_refdata=/path/to/my/msafit_ref_data/
 ```
 
-Install by downloading or cloning the repository. Then cd to jwst-msafit and:
+Install the software by downloading or cloning the repository. Then cd to jwst-msafit and type:
 ```
 python -m pip install .
 ```
