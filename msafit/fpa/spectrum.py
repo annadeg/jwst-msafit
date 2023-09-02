@@ -11,7 +11,7 @@ __all__ = ["Spec2D"]
 
 class Spec2D(DetectorCutout):
 
-    def __init__(self,parameter_dict,refdir=None,**kwargs):
+    def __init__(self,parameter_dict,return_full_detector=False,refdir=None,**kwargs):
 
         super().__init__(fwa=parameter_dict["instrument"]["filter"],
             gwa=parameter_dict["instrument"]["disperser"],
@@ -23,7 +23,12 @@ class Spec2D(DetectorCutout):
             oversampling=parameter_dict["instrument"]["psf_oversampling"],refdir=refdir)
 
         self.params = parameter_dict
-        self.make_cutout_range(parameter_dict["grid"]["wave_grid"],**kwargs)
+        self._make_full_detector = return_full_detector
+
+        if return_full_detector:
+            self.make_cutout_range(parameter_dict["grid"]["wave_grid"],pad_x=2048,pad_y=2048,**kwargs)
+        else:
+            self.make_cutout_range(parameter_dict["grid"]["wave_grid"],**kwargs)
 
     def _get_psfgrid(self,filename=None):
 
@@ -139,9 +144,17 @@ class Spec2D(DetectorCutout):
                 self.spec_491 = self._convolve_crosstalk(self.spec_491,491,**kwargs)             
                 self.spec_492 = self._convolve_crosstalk(self.spec_492,492,**kwargs)             
 
-            if self.spec_491 is not None: self.spec_491 = downsample_array(self.spec_491,self.cutout_oversample)
+            if self.spec_491 is not None: 
+                self.spec_491 = downsample_array(self.spec_491,self.cutout_oversample)
+                if self._make_full_detector: self.spec_491 = np.pad(self.spec_491,1,mode='constant',constant_values=0)
+            elif self.spec_491 is None and self._make_full_detector:
+                self.spec_491 = np.zeros((2048,2048))
 
-            if self.spec_492 is not None: self.spec_492 = downsample_array(self.spec_492,self.cutout_oversample)
+            if self.spec_492 is not None: 
+                self.spec_492 = downsample_array(self.spec_492,self.cutout_oversample)
+                if self._make_full_detector: self.spec_492 = np.pad(self.spec_492,1,mode='constant',constant_values=0)
+            elif self.spec_492 is None and self._make_full_detector:
+                self.spec_492 = np.zeros((2048,2048))
 
         if return_fluxes:
             flux_on_detector = np.sum(np.sum(conv_cube,axis=2),axis=1)
